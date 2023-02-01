@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Details</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/hospital.css}" href="/css/hospital.css"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="fragments/headerfooter :: header">Hier komt de header</div>
+
+<div class="container-fluid" style="height: 100vh">
+        <div>
+            <h2 th:if="${appointment}" >
+                <span th:text="|Appointment of |"></span>
+                <a class="btn btn-primary " th:href="@{'/patientdetails/' + ${appointment.getPatient().getId()}}" th:text="|${appointment.getPatient().getPatientName()}|" ></a>
+            </h2>
+            <p th:unless="${appointment}">appointment: onbekend</p>
+        </div>
+
+<div class="card-group mb-5">
+    <div class="card">
+        <div class="card-body">
+            <div th:if="${appointment}">
+                <div class="info">Doctor : </div>
+                <div><p th:text="${appointment.getDoctor().getDoctorName()}">0</p></div><br>
+                <div class="info">Date : </div>
+                <div><p th:text="${appointment.getDate()}">no</p></div><br>
+                <div class="info">Time : </div>
+                <div><p th:text="${#dates.format(appointment.getTime(), 'HH:mm')}">no</p></div><br>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div th:if="${appointment}">
+
+                <div class="info">Hospital : </div>
+                <div><p th:text="${appointment.getDoctor().getDepartment().getHospital().hospitalName}">0</p></div><br>
+                <div class="info">Department : </div>
+                <div><p th:text="${appointment.getDoctor().getDepartment().departmentName}">no</p></div><br>
+                <div class="info">Complaints : </div>
+                <div><p th:text="${appointment.getPatient().getComplaints()}">no</p></div><br>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:if="${appointment}" class="text-center">
+    <div th:if="${prev!=null}" class="btn btn-primary">
+        <a class="text-decoration-none text-white" th:href="@{'/appointmentdetails/' + ${prev}}">Previous Appointment</a>
+    </div>
+    <div th:if="${next!=null}" class="btn btn-primary">
+        <a class="text-decoration-none text-white" th:href="@{'/appointmentdetails/' + ${next}}">Next Appointment</a>
+    </div>
+</div>
+</div>
+<div th:replace="fragments/headerfooter :: footer">Hier komt de footer</div>
+</body>
+</html>
