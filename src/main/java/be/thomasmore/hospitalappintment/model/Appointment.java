@@ -9,8 +9,10 @@ import java.util.Date;
 
 @Entity
 public class Appointment {
-@Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointment_generator")
+    @SequenceGenerator(name = "appointment_generator", sequenceName = "APPOINTMENT_SEC", allocationSize = 1)
+    @Id
+    private Integer id;
     @Column(length = 200)
     private String info;
     @Temporal(TemporalType.DATE)
@@ -27,7 +29,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -59,12 +61,12 @@ public class Appointment {
         this.time = time;
     }
 
-    public be.thomasmore.hospitalappintment.model.Doctor getDoctor() {
+    public Doctor getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(be.thomasmore.hospitalappintment.model.Doctor doctor) {
-        doctor = doctor;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     public Patient getPatient() {

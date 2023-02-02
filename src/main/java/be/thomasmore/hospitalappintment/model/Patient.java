@@ -10,8 +10,6 @@ public class Patient {
     private int id;
     private String patientName;
     private String gender;
-    @Column(length = 1000)
-    private String complaints;
     private String phoneNo;
 
     public Patient() {
@@ -39,14 +37,6 @@ public class Patient {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public String getComplaints() {
-        return complaints;
-    }
-
-    public void setComplaints(String complaints) {
-        this.complaints = complaints;
     }
 
     public String getPhoneNo() {

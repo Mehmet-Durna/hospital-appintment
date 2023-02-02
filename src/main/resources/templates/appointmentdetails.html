@@ -20,6 +20,10 @@
             <p th:unless="${appointment}">appointment: onbekend</p>
         </div>
 
+    <div th:if="${appointment}" class="editButtonDiv">
+        <a class="btn btn-primary" th:href="@{'/admin/appointmentedit/' + ${appointment.id}}">Edit the Appointment</a>
+    </div>
+
 <div class="card-group mb-5">
     <div class="card">
         <div class="card-body">
@@ -36,13 +40,12 @@
     <div class="card">
         <div class="card-body">
             <div th:if="${appointment}">
-
                 <div class="info">Hospital : </div>
                 <div><p th:text="${appointment.getDoctor().getDepartment().getHospital().hospitalName}">0</p></div><br>
                 <div class="info">Department : </div>
                 <div><p th:text="${appointment.getDoctor().getDepartment().departmentName}">no</p></div><br>
                 <div class="info">Complaints : </div>
-                <div><p th:text="${appointment.getPatient().getComplaints()}">no</p></div><br>
+                <div><p th:text="${appointment.info}">no</p></div><br>
             </div>
         </div>
     </div>
