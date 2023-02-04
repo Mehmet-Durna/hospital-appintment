@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Hospital List</title>
@@ -16,6 +17,9 @@
 height: 100vh;">
 
         <h2 class="mb-5 text-center bg">Lets Find an Appointment...</h2>
+    <div class="onimage">
+        <h1 sec:authorize="isAuthenticated()"><span sec:authentication="name"></span></h1>
+    </div>
 
 
 

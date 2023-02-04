@@ -1,13 +1,14 @@
 package be.thomasmore.hospitalappintment.model;
 
 
-import jakarta.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Hospital {
 
     @Id
-    private int id;
+    private Integer id;
     private String hospitalName;
     private String address;
     private String telNo;
@@ -24,7 +25,7 @@ public class Hospital {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

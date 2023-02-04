@@ -31,9 +31,9 @@
                 <div class="info">Doctor : </div>
                 <div><p th:text="${appointment.getDoctor().getDoctorName()}">0</p></div><br>
                 <div class="info">Date : </div>
-                <div><p th:text="${appointment.getDate()}">no</p></div><br>
+                <div><p th:text="${appointment.date}">no</p></div><br>
                 <div class="info">Time : </div>
-                <div><p th:text="${#dates.format(appointment.getTime(), 'HH:mm')}">no</p></div><br>
+                <div><p th:text="${appointment.time}">no</p></div><br>
             </div>
         </div>
     </div>

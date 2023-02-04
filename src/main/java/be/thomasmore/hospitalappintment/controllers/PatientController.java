@@ -38,6 +38,7 @@ public class PatientController {
         Optional<Patient> optionalPatient = patientRepository.findById(id);
         Optional<Patient> optionalPrev = patientRepository.findFirstByIdLessThanOrderByIdDesc(id);
         Optional<Patient> optionalNext = patientRepository.findFirstByIdGreaterThanOrderById(id);
+
         if (optionalPatient.isPresent()) {
            Patient p = optionalPatient.get();
             model.addAttribute("patient",p);

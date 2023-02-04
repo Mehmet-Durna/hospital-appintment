@@ -1,17 +1,20 @@
 package be.thomasmore.hospitalappintment.model;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 public class Doctor {
 
     @Id
-    private int id;
+    private Integer id;
     private String doctorName;
     private String specialization;
     @Column(length = 1000)
     private String bio;
     private String inlinePhoneNo;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
@@ -24,7 +27,7 @@ public class Doctor {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

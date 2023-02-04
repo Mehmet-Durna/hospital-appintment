@@ -11,7 +11,7 @@
 <body>
 <div th:replace="fragments/headerfooter :: header">Hier komt de header</div>
 
-<div class="container-fluid" style="height: 100vh">
+<div class="container-fluid" >
         <div>
             <h2 th:if="${doctor}" th:text="| ${doctor.getDoctorName()}|">doctor: onbekend</h2>
             <p th:unless="${doctor}">department: onbekend</p>
@@ -37,10 +37,24 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Appointments</h5>
-            <div class="list-group" th:each="appointment: ${appointments}">
+            <div class="list-group" th:each="appointment: ${allAppointments}">
 
                 <a class="list-group-item list-group-item-action mb-3" th:href="@{'/appointmentdetails/'+${appointment.getId()}}">
                     <span th:text="${appointment.getPatient().getPatientName()}">Doctor name</span>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Available Appointments</h5>
+            <div class="list-group" th:each="slot: ${availableSlots}">
+
+                <a class="list-group-item list-group-item-action mb-3">
+                    <span th:text="|${slot}-${slot.plusMinutes(30)}|"></span>
                 </a>
 
             </div>

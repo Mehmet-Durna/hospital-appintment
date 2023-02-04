@@ -1,15 +1,16 @@
 package be.thomasmore.hospitalappintment.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Department {
     @Id
-    private int id;
+    private Integer id;
     private String departmentName;
     private String inlinePhoneNo;
 
@@ -24,7 +25,7 @@ public class Department {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
