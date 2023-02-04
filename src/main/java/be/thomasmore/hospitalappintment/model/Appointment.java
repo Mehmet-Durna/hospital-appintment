@@ -13,6 +13,10 @@ import java.time.LocalTime;
 
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Appointment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointment_generator")
     @SequenceGenerator(name = "appointment_generator", sequenceName = "APPOINTMENT_SEC", allocationSize = 1)
@@ -20,12 +24,10 @@ public class Appointment {
     private Integer id;
     @Column(length = 200)
     private String info;
-    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
-    @Temporal(TemporalType.TIME)
+    private LocalDate date;
     @DateTimeFormat(pattern = "HH:mm")
-    private Date time;
+    private LocalTime time;
     @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
     @ManyToOne(fetch = FetchType.LAZY)
