@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -51,5 +53,24 @@ public class HospitalController {
             model.addAttribute("next", hospitalRepository.findFirstByOrderByIdAsc().get().getId());
         }
         return "hospitaldetails";
+    }
+
+    @GetMapping("/hospitallist/filter")
+    public String hospitalListWithFilter(Model model,
+                                         @RequestParam(required = false) Integer minimumCapacity,
+                                         @RequestParam(required = false) Integer maximumCapacity,
+                                         @RequestParam(required = false) Double distance,
+                                         @RequestParam(required = false) String freeParking) {
+        List<Hospital> hospitals = hospitalRepository.findByCapacityDistanceParking(
+                minimumCapacity, maximumCapacity, distance,
+                ((freeParking==null || freeParking.equals("all")) ? null : (freeParking.equals("yes") ? true : false)));
+        model.addAttribute("maxCapacity", maximumCapacity);
+        model.addAttribute("minCapacity", minimumCapacity);
+        model.addAttribute("distance", distance);
+        model.addAttribute("freeParking", freeParking);
+        model.addAttribute("hospitals", hospitals);
+        model.addAttribute("nrHospitals", hospitals.size());
+        model.addAttribute("showFilter", true);
+        return "hospitallist";
     }
 }

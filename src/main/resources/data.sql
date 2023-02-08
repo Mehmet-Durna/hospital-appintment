@@ -124,3 +124,7 @@ values (nextval('APPOINTMENT_SEC'), 'Patient has a headache', '2023-02-28',
 insert into APPOINTMENT (ID, INFO, DATE, TIME, DOCTOR_ID, PATIENT_ID)
 values (nextval('APPOINTMENT_SEC'), 'Patient has a headache', '2023-02-28',
         '11:00',3, 5);
+
+insert into APPOINTMENT (ID, INFO, DATE, TIME, DOCTOR_ID, PATIENT_ID)
+values (nextval('APPOINTMENT_SEC'), 'Patient has a headache', '2023-02-07',
+        '11:00',1, 5);

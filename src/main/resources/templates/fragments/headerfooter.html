@@ -9,6 +9,7 @@
     <div th:fragment="header">
 <div class="navbar navbar-expand-lg navbar-light bg-danger d-flex justify-content-between">
     <div>
+
         <ul class="navbar-nav">
             <a class="navbar-brand" href="/home">Hospital Finder</a>
             <li class="nav-item">
@@ -23,9 +24,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="/doctorlist">Doctors</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/nurselist">Nurses</a>
+            <li  sec:authorize="hasRole('ADMIN')" class="editButtonDiv">
+                <a class="nav-link" th:href="@{'/admin/adminrights/' }">Admin Panel</a>
             </li>
+
+
         </ul>
     </div>
     <div class="d-flex  ">

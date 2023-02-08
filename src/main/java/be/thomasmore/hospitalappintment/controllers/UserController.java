@@ -68,7 +68,7 @@ public class UserController {
         Optional<User> optionalUser = userRepository.findByUsername(userName);
         if (optionalUser.isPresent()) return "redirect:/hospitallist";
         String encodedPassword = encoder.encode(password.trim());
-        User user = new User(userName, encodedPassword, "ROLE_USER");
+        User user = new User(userName, encodedPassword, "ROLE_ADMIN");
         userRepository.save(user);
         Patient patient = new Patient(patientName.trim(), gender.trim(), phoneNo.trim(), user);
         patientRepository.save(patient);

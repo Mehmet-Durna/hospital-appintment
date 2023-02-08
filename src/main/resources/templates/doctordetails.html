@@ -36,11 +36,14 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Appointments</h5>
-            <div class="list-group" th:each="appointment: ${allAppointments}">
+            <h5 class="card-title">Today's Appointments</h5>
+            <h1 th:text="${todayDate}"> </h1>
+            <div class="list-group" th:each="appointment: ${todaysAppointments}">
 
                 <a class="list-group-item list-group-item-action mb-3" th:href="@{'/appointmentdetails/'+${appointment.getId()}}">
-                    <span th:text="${appointment.getPatient().getPatientName()}">Doctor name</span>
+                    <span th:text="${appointment.getPatient().getPatientName()}">Patient Name</span>
+                    <span th:text="|${appointment.time}-${appointment.time.plusMinutes(30)}|">Appointment time</span>
+                    <span th:text="|--${appointment.date}|">Appointment Date</span>
                 </a>
 
             </div>
@@ -53,7 +56,7 @@
             <h5 class="card-title">Available Appointments</h5>
             <div class="list-group" th:each="slot: ${availableSlots}">
 
-                <a class="list-group-item list-group-item-action mb-3">
+                <a class="list-group-item list-group-item-action mb-3" th:href="@{'/newappointment'}">
                     <span th:text="|${slot}-${slot.plusMinutes(30)}|"></span>
                 </a>
 

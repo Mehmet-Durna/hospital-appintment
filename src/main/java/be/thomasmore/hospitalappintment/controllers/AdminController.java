@@ -1,9 +1,11 @@
 package be.thomasmore.hospitalappintment.controllers;
 
 import be.thomasmore.hospitalappintment.model.Appointment;
+import be.thomasmore.hospitalappintment.model.User;
 import be.thomasmore.hospitalappintment.repositories.AppointmentRepository;
 import be.thomasmore.hospitalappintment.repositories.DoctorRepository;
 import be.thomasmore.hospitalappintment.repositories.PatientRepository;
+import be.thomasmore.hospitalappintment.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ public class AdminController {
     private DoctorRepository doctorRepository;
     @Autowired
     private PatientRepository patientRepository;
+
 
     @ModelAttribute("appointment")
     public Appointment findAppointment(@PathVariable(required = false) Integer id) {
@@ -62,5 +65,11 @@ public class AdminController {
         logger.info("partyNewPost -- new name=" + appointment.getPatient().getPatientName() + ", date=" + appointment.getDate());
         appointmentRepository.save(appointment);
         return "redirect:/appointmentdetails/"+appointment.getId();
+    }
+
+    @GetMapping("/adminrights")
+    public String adminRightsDecider(Model model, User user){
+        model.addAttribute("user",user);
+        return "admin/adminrights";
     }
 }
