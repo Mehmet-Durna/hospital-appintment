@@ -1,5 +1,6 @@
 package be.thomasmore.hospitalappintment.controllers;
 
+import be.thomasmore.hospitalappintment.model.Appointment;
 import be.thomasmore.hospitalappintment.model.Doctor;
 import be.thomasmore.hospitalappintment.model.Patient;
 import be.thomasmore.hospitalappintment.repositories.AppointmentRepository;
@@ -13,10 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.*;
@@ -33,6 +31,8 @@ public class DoctorController {
     private AppointmentRepository appointmentRepository;
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
+
+
 
     @GetMapping("/doctorlist")
     public String doctorlist(Model model) {
@@ -61,6 +61,8 @@ public class DoctorController {
         model.addAttribute("availableSlots",
                 doctorService.getAvailableAppointmentTimes(todaysAppointments).stream().toList());
 
+
+
         if (optionalPrev.isPresent()) {
             model.addAttribute("prev", optionalPrev.get().getId());
         } else {
@@ -75,25 +77,5 @@ public class DoctorController {
         return "doctordetails";
     }
 
-    @PostMapping("/partygoing")
-    public String takeAppPost(Principal principal,
-                                 @RequestParam int patientId,
-                                 @RequestParam int doctorId) {
 
-
-
-            Optional<Patient> optionalPatient = patientRepository.findById(patientId);
-            Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
-            if (optionalPatient.isPresent()) {
-                Patient patient = optionalPatient.get();
-                if (patient.getUser()!=null && patient.getUser().getUsername()==principal.getName()) {
-
-
-                    party.setAnimals(goingAnimals);
-                    partyRepository.save(party);
-                }
-            }
-
-        return "redirect:/partydetails/"+partyId;
-    }
 }

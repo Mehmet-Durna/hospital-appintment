@@ -37,7 +37,7 @@
                 <div class="list-group" th:each="appointment: ${appointments}">
 
                     <a class="list-group-item list-group-item-action mb-3" th:href="@{'/appointmentdetails/'+${appointment.getId()}}">
-                        <span th:text="|Appointment with doctor ${appointment.getDoctor().getDoctorName()} in ${appointment.getDoctor().department.getHospital().getHospitalName()} hospital at ${#dates.format(appointment.getTime(), 'HH:mm')}|">Doctor name</span>
+                        <span th:text="|Appointment with doctor ${appointment.getDoctor().getDoctorName()} in ${appointment.getDoctor().department.getHospital().getHospitalName()} hospital at ${appointment.getTime()}|">Doctor name</span>
                     </a>
 
                 </div>

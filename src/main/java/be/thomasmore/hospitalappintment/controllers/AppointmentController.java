@@ -5,11 +5,14 @@ import be.thomasmore.hospitalappintment.model.Appointment;
 import be.thomasmore.hospitalappintment.model.Department;
 
 
+import be.thomasmore.hospitalappintment.model.User;
 import be.thomasmore.hospitalappintment.repositories.AppointmentRepository;
 import be.thomasmore.hospitalappintment.repositories.DepartmentRepository;
 
 import be.thomasmore.hospitalappintment.repositories.DoctorRepository;
 import be.thomasmore.hospitalappintment.repositories.PatientRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +25,8 @@ import java.util.Optional;
 
 @Controller
 public class AppointmentController {
+
+    private Logger logger = LoggerFactory.getLogger(AppointmentController.class);
 
     @Autowired
     private AppointmentRepository appointmentRepository;
@@ -65,6 +70,42 @@ public class AppointmentController {
         }
         return "appointmentdetails";
     }
+
+
+
+
+    @GetMapping("/appointmentedit/{id}")
+    public String appointmentEdit(Model model, @PathVariable int id) {
+        logger.info("appointmentedit : "+id);
+        model.addAttribute("doctors", doctorRepository.findAll());
+        model.addAttribute("patients", patientRepository.findAll());
+        return "appointmentedit";
+    }
+
+    @PostMapping("/appointmentedit/{id}")
+    public String appointmentEditPost(Model model, @PathVariable int id, @ModelAttribute("appointment") Appointment appointment) {
+        logger.info("appointmentEditPost " + id + " -- new name=" + appointment.getPatient().getPatientName());
+        appointmentRepository.save(appointment);
+        return "redirect:/appointmentdetails/"+id;
+    }
+
+    @GetMapping("/appointmentnew")
+    public String appointmentNew(Model model) {
+        logger.info("appointmentnew");
+        model.addAttribute("doctors", doctorRepository.findAll());
+        model.addAttribute("patients", patientRepository.findAll());
+        return "appointmentnew";
+    }
+
+    @PostMapping("/appointmentnew")
+    public String appointmentNewPost(Model model, @ModelAttribute("appointment")  Appointment appointment) {
+        logger.info("partyNewPost -- new name=" + appointment.getPatient().getPatientName() + ", date=" + appointment.getDate());
+        appointmentRepository.save(appointment);
+        return "redirect:/appointmentdetails/"+appointment.getId();
+    }
+
+
+
 
 
 
