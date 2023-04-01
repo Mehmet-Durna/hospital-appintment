@@ -13,8 +13,8 @@
 <div class="row1">
     <div class="row1content" th:if="${appointment}" th:object="${appointment}">
         <div th:if="${patient}" class="editButtonDiv">
-            <h2 th:text="${patient.patientName}"></h2>
-        </div>
+
+
         <div>
             <h2>New Appointment</h2>
         </div>
@@ -42,14 +42,21 @@
 
                 <div class="oneinput">
                     <label for="time" class="">Time: </label>
-                    <input type="time" id="time" class="editfield" th:field="*{time}">
+                    <select id="time" class="editfield" th:field="*{time}">
+                        <option th:each="hour : ${hours}" th:value="${hour}" th:text="${hour}"></option>
+                    </select>
                 </div>
+
 
                 <div class="oneinput">
                     <label for="complaint" class="info">Complaints: </label>
                     <textarea id="complaint" class="editfield" th:field="*{info}"></textarea>
                 </div>
             </form>
+             </div>
+        </div>
+        <div th:unless="patient">
+            <h2>Please Login</h2>
         </div>
     </div>
 </div>

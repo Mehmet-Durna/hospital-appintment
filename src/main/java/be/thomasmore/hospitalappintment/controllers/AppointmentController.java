@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -97,6 +99,14 @@ public class AppointmentController {
         logger.info("appointmentnew");
         Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
         Optional<Patient> optionalPatient = patientRepository.findByUsername(principal.getName());
+
+
+        List<String> hours = new ArrayList<>();
+        for (int i = 8; i < 17; i++) {
+            hours.add(String.format("%02d:00", i));
+            hours.add(String.format("%02d:30", i));
+        }
+        model.addAttribute("hours", hours);
 
 
         if (optionalPatient.isPresent()) {
