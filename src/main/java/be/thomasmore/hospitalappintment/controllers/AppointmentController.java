@@ -1,16 +1,16 @@
 package be.thomasmore.hospitalappintment.controllers;
 
 
-import be.thomasmore.hospitalappintment.model.Appointment;
-import be.thomasmore.hospitalappintment.model.Department;
+import be.thomasmore.hospitalappintment.model.*;
 
 
-import be.thomasmore.hospitalappintment.model.User;
 import be.thomasmore.hospitalappintment.repositories.AppointmentRepository;
 import be.thomasmore.hospitalappintment.repositories.DepartmentRepository;
 
 import be.thomasmore.hospitalappintment.repositories.DoctorRepository;
 import be.thomasmore.hospitalappintment.repositories.PatientRepository;
+import be.thomasmore.hospitalappintment.service.DoctorService;
+import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +21,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
 public class AppointmentController {
 
     private Logger logger = LoggerFactory.getLogger(AppointmentController.class);
+
+    private DoctorService doctorService;
 
     @Autowired
     private AppointmentRepository appointmentRepository;
@@ -89,9 +92,25 @@ public class AppointmentController {
         return "redirect:/appointmentdetails/"+id;
     }
 
-    @GetMapping("/appointmentnew")
-    public String appointmentNew(Model model) {
+    @GetMapping({"/appointmentnew", "appointmentnew/{doctorId}"})
+    public String appointmentNew(Model model, Principal principal, @PathVariable(required = false) Integer doctorId) {
         logger.info("appointmentnew");
+        Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
+        Optional<Patient> optionalPatient = patientRepository.findByUsername(principal.getName());
+
+
+        if (optionalPatient.isPresent()) {
+            Patient patient = optionalPatient.get();
+            model.addAttribute("patient", patient);
+        }
+
+        if (optionalDoctor.isPresent()) {
+            Doctor doctor = optionalDoctor.get();
+            model.addAttribute("doctor", doctor);
+        }
+        logger.info(principal.getName());
+
+
         model.addAttribute("doctors", doctorRepository.findAll());
         model.addAttribute("patients", patientRepository.findAll());
         return "appointmentnew";

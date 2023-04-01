@@ -12,8 +12,8 @@
 <div th:replace="fragments/headerfooter :: header">Hier komt de header</div>
 <div class="row1">
     <div class="row1content" th:if="${appointment}" th:object="${appointment}">
-        <div th:if="${appointment}" class="editButtonDiv">
-
+        <div th:if="${patient}" class="editButtonDiv">
+            <h2 th:text="${patient.patientName}"></h2>
         </div>
         <div>
             <h2>New Appointment</h2>
@@ -26,13 +26,13 @@
                 <div class="oneinput">
                     <label for="patient" class="">Patient: </label>
                     <select id="patient" class="" th:field="*{patient}">
-                        <option th:each="p : ${patients}" th:selected="*{patient}" th:value="${p.id}" th:text="${p.patientName}"></option>
+                        <option th:selected="*{patient}" th:value="${patient.id}" th:text="${patient.patientName}"></option>
                     </select>
                 </div>
                 <div class="oneinput">
                     <label for="doctor" class="">Doctor: </label>
                     <select id="doctor" class="" th:field="*{doctor}">
-                        <option th:each="d : ${doctors}" th:selected="*{doctor}" th:value="${d.id}" th:text="${d.doctorName}"></option>
+                        <option  th:selected="*{doctor}" th:value="${doctor.id}" th:text="${doctor.getDoctorName()}"></option>
                     </select>
                 </div>
                 <div class="oneinput">
