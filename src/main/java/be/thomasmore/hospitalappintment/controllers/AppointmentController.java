@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -94,19 +96,12 @@ public class AppointmentController {
         return "redirect:/appointmentdetails/"+id;
     }
 
-    @GetMapping({"/appointmentnew", "appointmentnew/{doctorId}"})
-    public String appointmentNew(Model model, Principal principal, @PathVariable(required = false) Integer doctorId) {
+    @GetMapping({"/appointmentnew", "appointmentnew/{doctorId}/{appointmentTime}"})
+    public String appointmentNew(Model model, Principal principal, @PathVariable(required = false) Integer doctorId,@PathVariable(required = false) String appointmentTime) {
         logger.info("appointmentnew");
         Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
         Optional<Patient> optionalPatient = patientRepository.findByUsername(principal.getName());
 
-
-        List<String> hours = new ArrayList<>();
-        for (int i = 8; i < 17; i++) {
-            hours.add(String.format("%02d:00", i));
-            hours.add(String.format("%02d:30", i));
-        }
-        model.addAttribute("hours", hours);
 
 
         if (optionalPatient.isPresent()) {
@@ -118,9 +113,9 @@ public class AppointmentController {
             Doctor doctor = optionalDoctor.get();
             model.addAttribute("doctor", doctor);
         }
-        logger.info(principal.getName());
 
-
+        model.addAttribute("today", LocalDate.now());
+        model.addAttribute("appointmentTime", appointmentTime);
         model.addAttribute("doctors", doctorRepository.findAll());
         model.addAttribute("patients", patientRepository.findAll());
         return "appointmentnew";

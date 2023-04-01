@@ -56,7 +56,7 @@
             <h5 class="card-title">Available Appointments</h5>
             <div class="list-group" th:each="slot: ${availableSlots}">
 
-                <a class="list-group-item list-group-item-action mb-3" th:href="@{'/appointmentnew/'+${doctor.id}}">
+                <a class="list-group-item list-group-item-action mb-3" th:href="@{'/appointmentnew/'+${doctor.id} +'/' +${slot} }">
                     <span th:text="|${slot}-${slot.plusMinutes(30)}|"></span>
                 </a>
 

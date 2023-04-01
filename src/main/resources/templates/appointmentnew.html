@@ -14,7 +14,7 @@
     <div class="row1content" th:if="${appointment}" th:object="${appointment}">
         <div th:if="${patient}" class="editButtonDiv">
 
-
+            <h2 th:text="${today}"></h2>
         <div>
             <h2>New Appointment</h2>
         </div>
@@ -35,15 +35,22 @@
                         <option  th:selected="*{doctor}" th:value="${doctor.id}" th:text="${doctor.getDoctorName()}"></option>
                     </select>
                 </div>
+<!--                <div class="oneinput">-->
+<!--                    <label for="date" class="">Date: </label>-->
+<!--                    <input type="date" id="date" class="editfield" th:field="*{date}">-->
+<!--                </div>-->
+
                 <div class="oneinput">
-                    <label for="date" class="">Date: </label>
-                    <input type="date" id="date" class="editfield" th:field="*{date}">
+                    <label for="date" class="">Time: </label>
+                    <select id="date" class="editfield" th:field="*{date}">
+                        <option th:value="${today}" th:text="${today}"></option>
+                    </select>
                 </div>
 
                 <div class="oneinput">
                     <label for="time" class="">Time: </label>
                     <select id="time" class="editfield" th:field="*{time}">
-                        <option th:each="hour : ${hours}" th:value="${hour}" th:text="${hour}"></option>
+                        <option th:value="${appointmentTime}" th:text="${appointmentTime}"></option>
                     </select>
                 </div>
 
