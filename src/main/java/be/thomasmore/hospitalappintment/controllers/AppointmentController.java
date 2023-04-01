@@ -68,31 +68,4 @@ public class AppointmentController {
 
 
 
-    @GetMapping("/appointmentedit/{id}")
-    public String appointmentEdit(Model model, @PathVariable int id) {
-
-        return "admin/appointmentedit";
-    }
-
-    @PostMapping("/appointmentedit/{id}")
-    public String appointmentEditPost(Model model, @PathVariable int id, @ModelAttribute("appointment") Appointment appointment) {
-        appointmentRepository.save(appointment);
-        return "redirect:/appointmentdetails/"+id;
-    }
-
-    @GetMapping("/appointmentnew/{patientId}/{doctorId}")
-    public String appointmentNew(Model model,@PathVariable int patientId,@PathVariable int doctorId) {
-
-        model.addAttribute("doctor", doctorRepository.findById(doctorId));
-        model.addAttribute("patient", patientRepository.findById(patientId));
-        return "admin/appointmentnew";
-    }
-
-    @PostMapping("/appointmentnew")
-    public String appointmentNewPost(Model model, @ModelAttribute("appointment")  Appointment appointment) {
-        appointmentRepository.save(appointment);
-        return "redirect:/appointmentdetails/"+appointment.getId();
-    }
-
-
 }

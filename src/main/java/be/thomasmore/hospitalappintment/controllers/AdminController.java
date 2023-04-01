@@ -5,7 +5,6 @@ import be.thomasmore.hospitalappintment.model.User;
 import be.thomasmore.hospitalappintment.repositories.AppointmentRepository;
 import be.thomasmore.hospitalappintment.repositories.DoctorRepository;
 import be.thomasmore.hospitalappintment.repositories.PatientRepository;
-import be.thomasmore.hospitalappintment.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
