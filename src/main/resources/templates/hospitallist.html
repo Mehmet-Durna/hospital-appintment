@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Hospital List</title>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/hospital.css}" href="/css/hospital.css"/>
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}"
+          href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -13,65 +14,74 @@
 
 
 <div class="container" style="height: 100vh">
+    <div class="row">
 
 
 
+    <h2 class="mb-5 text-center bg">Hospitals</h2>
 
+    <div class="col-sm-6">
 
-
-    <div class="filters" th:if="${showFilter}">
-        <div class="verticalmargin">
+    <div class="" th:if="${showFilter}">
+        <a th:href="@{/hospitallist}" class="buttonLook filterButton">Hide Filters</a>
+        <div>
             <span class="generalinfo" th:text="|${nrHospitals} hospitals found|">0 hospitals found</span>
         </div>
         <div class="verticalmargin">
-            <a th:href="@{/hospitallist}" class="buttonLook filterButton">-</a>
-            <form>
-                <div class="onefilter">
-                    <input type="submit" value="search" class="buttonLook">
-                </div>
-                <h3>capacity</h3>
-                <div class="onefilter">
-                    <label for="minCapacity" class="filtername">min</label>
-                    <input type="number" id="minCapacity" name="minimumCapacity" th:value="${minCapacity}"  step="50"> <span>persons</span>
-                </div>
-                <div class="onefilter">
-                    <label for="maxCapacity" class="filtername">max</label>
-                    <input type="number" id="maxCapacity" name="maximumCapacity" th:value="${maxCapacity}"  step="50"> <span>persons</span>
-                </div>
-                <h3>distance to public transport</h3>
-                <div class="onefilter">
-                    <label for="distance" class="filtername">max</label>
-                    <input type="number" id="distance" name="distance" th:value="${distance}" step="0.5"> <span>km</span>
-                </div>
-                <h3>Free Parking Available</h3>
-                <div class="onefilter">
-                    <label for="freeparking1" class="filtername">yes</label>
-                    <input type="radio" id="freeparking1" name="freeParking" value="yes" th:checked="${freeParking}=='yes'">
-                    <label for="freeparking2" class="filtername">no</label>
-                    <input type="radio" id="freeparking2" name="freeParking" value="no" th:checked="${freeParking}=='no'">
-                    <label for="freeparking3" class="filtername">all</label>
-                    <input type="radio" id="freeparking3" name="freeParking" value="all" th:checked="${freeParking}=='all'">
-                </div>
 
+            <form>
+                <div class=" border p-3 rounded  ">
+
+                <h5>Capacity:</h5>
+                <div >
+                    <label for="minCapacity" class="filtername">min</label>
+                    <input type="number" id="minCapacity" name="minimumCapacity" th:value="${minCapacity}" step="50">
+                </div>
+                <div >
+                    <label for="maxCapacity" class="filtername">max</label>
+                    <input type="number" id="maxCapacity" name="maximumCapacity" th:value="${maxCapacity}" step="50">
+                </div>
+                <h5>Distance to Public Transport:</h5>
+                <div >
+                    <label for="distance" class="filtername">max</label>
+                    <input type="number" id="distance" name="distance" th:value="${distance}" step="0.5">
+                    <span>km</span>
+                </div>
+                <h5>Free Parking Available:</h5>
+                <div >
+                    <label for="freeparking1" class="filtername">yes</label>
+                    <input type="radio" id="freeparking1" name="freeParking" value="yes"
+                           th:checked="${freeParking}=='yes'">
+                    <label for="freeparking2" class="filtername">no</label>
+                    <input type="radio" id="freeparking2" name="freeParking" value="no"
+                           th:checked="${freeParking}=='no'">
+                    <label for="freeparking3" class="filtername">all</label>
+                    <input type="radio" id="freeparking3" name="freeParking" value="all"
+                           th:checked="${freeParking}=='all'">
+                </div>
+                    <div >
+                        <input type="submit" value="search" class="btn btn-primary">
+                    </div>
+                </div>
             </form>
         </div>
     </div>
     <div class="filters" th:unless="${showFilter}">
         <div class="verticalmargin">
-            <a th:href="@{/hospitallist/filter}" class="buttonLook filterButton">+</a>
+            <a th:href="@{/hospitallist/filter}" class="buttonLook filterButton">Show Filters</a>
         </div>
     </div>
+    </div>
 
+        <div class="col-sm-6">
+    <div class="list-group" th:each="hospital: ${hospitals}">
+        <a class="list-group-item list-group-item-action mb-3" th:href="@{'/hospitaldetails/'+${hospital.getId()}}">
+            <span th:text="${hospital.getHospitalName()}">hospital name</span>
+        </a>
+    </div>
+</div>
 
-
-
-        <h2 class="mb-5 text-center bg">Hospitals</h2>
-            <div class="list-group" th:each="hospital: ${hospitals}">
-                <a class="list-group-item list-group-item-action mb-3" th:href="@{'/hospitaldetails/'+${hospital.getId()}}">
-                    <span th:text="${hospital.getHospitalName()}">hospital name</span>
-                </a>
-            </div>
-
+    </div>
 
 </div>
 

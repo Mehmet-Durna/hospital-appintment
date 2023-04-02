@@ -36,8 +36,7 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Today's Appointments</h5>
-            <h1 th:text="${todayDate}"> </h1>
+            <h5 class="card-title">Today's Appointments <span th:text="|(${todayDate})|"></span></h5>
             <div class="list-group" th:each="appointment: ${todaysAppointments}">
 
                 <a class="list-group-item list-group-item-action mb-3" th:href="@{'/appointmentdetails/'+${appointment.getId()}}">

@@ -125,7 +125,7 @@ public class AppointmentController {
     public String appointmentNewPost(Model model, @ModelAttribute("appointment")  Appointment appointment) {
         logger.info("partyNewPost -- new name=" + appointment.getPatient().getPatientName() + ", date=" + appointment.getDate());
         appointmentRepository.save(appointment);
-        return "redirect:/appointmentdetails/"+appointment.getId();
+        return "redirect:/doctordetails/"+appointment.getDoctor().getId();
     }
 
 
