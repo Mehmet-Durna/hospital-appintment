@@ -9,10 +9,7 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -52,14 +49,15 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public ArrayList<LocalTime> getAvailableAppointmentTimes(List<Appointment> appointments) {
-        val allSlots = new ArrayList<LocalTime>();
-        var startOfDay = LocalTime.parse("08:00");
+        ArrayList<LocalTime> allSlots = new ArrayList<>();
+        LocalTime startOfDay = LocalTime.parse("08:00");
         for (int i = 0; i < 18; i++) {
             allSlots.add(startOfDay);
             startOfDay = startOfDay.plusMinutes(30);
         }
+
         appointments.forEach(appointment -> {
-            val appointmentTime = appointment.getTime();
+            LocalTime appointmentTime = appointment.getTime();
             if (allSlots.contains(appointmentTime)) {
                 allSlots.remove(appointmentTime);
             }
@@ -67,4 +65,5 @@ public class DoctorServiceImpl implements DoctorService {
 
         return allSlots;
     }
+
 }

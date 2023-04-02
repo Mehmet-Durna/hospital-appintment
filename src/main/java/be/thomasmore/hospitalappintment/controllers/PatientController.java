@@ -13,11 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
 @Controller
 public class PatientController {
+
+    private Logger logger = LoggerFactory.getLogger(PatientController.class);
 
     @Autowired
     private PatientRepository patientRepository;
@@ -38,6 +42,7 @@ public class PatientController {
         Optional<Patient> optionalPatient = patientRepository.findById(id);
         Optional<Patient> optionalPrev = patientRepository.findFirstByIdLessThanOrderByIdDesc(id);
         Optional<Patient> optionalNext = patientRepository.findFirstByIdGreaterThanOrderById(id);
+        logger.info(optionalPatient.get().getPatientName());
 
         if (optionalPatient.isPresent()) {
            Patient p = optionalPatient.get();

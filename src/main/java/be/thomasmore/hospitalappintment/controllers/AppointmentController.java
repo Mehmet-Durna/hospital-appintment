@@ -2,15 +2,9 @@ package be.thomasmore.hospitalappintment.controllers;
 
 
 import be.thomasmore.hospitalappintment.model.*;
-
-
 import be.thomasmore.hospitalappintment.repositories.AppointmentRepository;
-import be.thomasmore.hospitalappintment.repositories.DepartmentRepository;
-
 import be.thomasmore.hospitalappintment.repositories.DoctorRepository;
 import be.thomasmore.hospitalappintment.repositories.PatientRepository;
-import be.thomasmore.hospitalappintment.service.DoctorService;
-import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.security.Principal;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -33,7 +23,7 @@ public class AppointmentController {
 
     private Logger logger = LoggerFactory.getLogger(AppointmentController.class);
 
-    private DoctorService doctorService;
+
 
     @Autowired
     private AppointmentRepository appointmentRepository;
@@ -53,6 +43,7 @@ public class AppointmentController {
         }
         return new Appointment();
     }
+
 
 
     @GetMapping({"/appointmentdetails", "/appointmentdetails/{id}"})
@@ -81,19 +72,36 @@ public class AppointmentController {
 
 
 
-    @GetMapping("/appointmentedit/{id}")
-    public String appointmentEdit(Model model, @PathVariable int id) {
-        logger.info("appointmentedit : "+id);
+    @GetMapping("/appointmentedit/{doctorId}/{appointmentTime}")
+    public String appointmentEdit(Model model,Principal principal, @PathVariable(required = false) Integer doctorId,@PathVariable(required = false) String appointmentTime) {
+
         model.addAttribute("doctors", doctorRepository.findAll());
         model.addAttribute("patients", patientRepository.findAll());
+
+        Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
+        Optional<Patient> optionalPatient = patientRepository.findByUsername(principal.getName());
+
+
+        if (optionalPatient.isPresent()) {
+            Patient patient = optionalPatient.get();
+            model.addAttribute("patient", patient);
+        }
+
+        if (optionalDoctor.isPresent()) {
+            Doctor doctor = optionalDoctor.get();
+            model.addAttribute("doctor", doctor);
+        }
+
+        model.addAttribute("today", LocalDate.now());
+        model.addAttribute("appointmentTime", appointmentTime);
         return "appointmentedit";
     }
 
     @PostMapping("/appointmentedit/{id}")
     public String appointmentEditPost(Model model, @PathVariable int id, @ModelAttribute("appointment") Appointment appointment) {
-        logger.info("appointmentEditPost " + id + " -- new name=" + appointment.getPatient().getPatientName());
+//        logger.info("appointmentEditPost " + id + " -- new name=" + appointment.getPatient().getPatientName());
         appointmentRepository.save(appointment);
-        return "redirect:/appointmentdetails/"+id;
+        return "redirect:/doctordetails/"+appointment.getDoctor().getId();
     }
 
     @GetMapping({"/appointmentnew", "appointmentnew/{doctorId}/{appointmentTime}"})

@@ -5,7 +5,7 @@ import be.thomasmore.hospitalappintment.model.Doctor;
 import be.thomasmore.hospitalappintment.model.Patient;
 import org.springframework.data.repository.CrudRepository;
 
-import javax.print.Doc;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;

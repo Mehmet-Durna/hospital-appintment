@@ -1,9 +1,11 @@
 //package be.thomasmore.hospitalappintment.controllers;
 //
 //import be.thomasmore.hospitalappintment.model.Appointment;
+//import be.thomasmore.hospitalappintment.model.Hospital;
 //import be.thomasmore.hospitalappintment.model.User;
 //import be.thomasmore.hospitalappintment.repositories.AppointmentRepository;
 //import be.thomasmore.hospitalappintment.repositories.DoctorRepository;
+//import be.thomasmore.hospitalappintment.repositories.HospitalRepository;
 //import be.thomasmore.hospitalappintment.repositories.PatientRepository;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -24,47 +26,73 @@
 //    private DoctorRepository doctorRepository;
 //    @Autowired
 //    private PatientRepository patientRepository;
+//    @Autowired
+//    private HospitalRepository hospitalRepository;
 //
 //
-//    @ModelAttribute("appointment")
-//    public Appointment findAppointment(@PathVariable(required = false) Integer id) {
-//        logger.info("findAppointment "+id);
+//    @ModelAttribute("hospital")
+//    public Hospital findHospital(@PathVariable(required = false) Integer id) {
+//        logger.info("findParty "+id);
 //        if (id!=null) {
-//            Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
-//            if (optionalAppointment.isPresent()) return optionalAppointment.get();
+//            Optional<Hospital> optionalHospital = hospitalRepository.findById(id);
+//            if (optionalHospital.isPresent()) return optionalHospital.get();
 //        }
-//        return new Appointment();
+//        return new Hospital();
 //    }
 //
-//    @GetMapping("/appointmentedit/{id}")
-//    public String appointmentEdit(Model model, @PathVariable int id) {
-//        logger.info("appointmentedit : "+id);
-//        model.addAttribute("doctors", doctorRepository.findAll());
-//        model.addAttribute("patients", patientRepository.findAll());
-//        return "admin/appointmentedit";
+//    @GetMapping("/hospitalnew")
+//    public String partyNew(Model model) {
+//        logger.info("hospitalnew");
+////        model.addAttribute("venues", venueRepository.findAll());
+//        return "admin/hospitalnew";
 //    }
 //
-//    @PostMapping("/appointmentedit/{id}")
-//    public String appointmentEditPost(Model model, @PathVariable int id, @ModelAttribute("appointment") Appointment appointment) {
-//        logger.info("appointmentEditPost " + id + " -- new name=" + appointment.getPatient().getPatientName());
-//        appointmentRepository.save(appointment);
-//        return "redirect:/appointmentdetails/"+id;
+//    @PostMapping("/hospitalnew")
+//    public String partyNewPost(Model model, @ModelAttribute("hospital") Hospital hospital) {
+//
+//        hospitalRepository.save(hospital);
+//        return "redirect:/hospitaldetails/"+hospital.getId();
 //    }
 //
-//    @GetMapping("/appointmentnew")
-//    public String appointmentNew(Model model) {
-//        logger.info("appointmentnew");
-//        model.addAttribute("doctors", doctorRepository.findAll());
-//        model.addAttribute("patients", patientRepository.findAll());
-//        return "admin/appointmentnew";
-//    }
+////    @ModelAttribute("appointment")
+////    public Appointment findAppointment(@PathVariable(required = false) Integer id) {
+////        logger.info("findAppointment "+id);
+////        if (id!=null) {
+////            Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
+////            if (optionalAppointment.isPresent()) return optionalAppointment.get();
+////        }
+////        return new Appointment();
+////    }
 //
-//    @PostMapping("/appointmentnew")
-//    public String appointmentNewPost(Model model, @ModelAttribute("appointment")  Appointment appointment) {
-//        logger.info("partyNewPost -- new name=" + appointment.getPatient().getPatientName() + ", date=" + appointment.getDate());
-//        appointmentRepository.save(appointment);
-//        return "redirect:/appointmentdetails/"+appointment.getId();
-//    }
+////    @GetMapping("/appointmentedit/{id}")
+////    public String appointmentEdit(Model model, @PathVariable int id) {
+////        logger.info("appointmentedit : "+id);
+////        model.addAttribute("doctors", doctorRepository.findAll());
+////        model.addAttribute("patients", patientRepository.findAll());
+////        return "admin/appointmentedit";
+////    }
+////
+////    @PostMapping("/appointmentedit/{id}")
+////    public String appointmentEditPost(Model model, @PathVariable int id, @ModelAttribute("appointment") Appointment appointment) {
+////        logger.info("appointmentEditPost " + id + " -- new name=" + appointment.getPatient().getPatientName());
+////        appointmentRepository.save(appointment);
+////        return "redirect:/appointmentdetails/"+id;
+////    }
+////
+////    @GetMapping("/appointmentnew")
+////    public String appointmentNew(Model model) {
+////        logger.info("appointmentnew");
+////        model.addAttribute("doctors", doctorRepository.findAll());
+////        model.addAttribute("patients", patientRepository.findAll());
+////        return "admin/appointmentnew";
+////    }
+////
+////    @PostMapping("/appointmentnew")
+////    public String appointmentNewPost(Model model, @ModelAttribute("appointment")  Appointment appointment) {
+////        logger.info("partyNewPost -- new name=" + appointment.getPatient().getPatientName() + ", date=" + appointment.getDate());
+////        appointmentRepository.save(appointment);
+////        return "redirect:/appointmentdetails/"+appointment.getId();
+////    }
 //
 //    @GetMapping("/adminrights")
 //    public String adminRightsDecider(Model model, User user){
