@@ -10,47 +10,55 @@
 </head>
 <body>
 <div th:replace="fragments/headerfooter :: header">Hier komt de header</div>
-<div class="row1">
-    <div class="" th:object="${appointment}">
-        <div th:if="${appointment}" class="">
-            <a class="btn btn-outline-primary " th:href="@{'/home' }">back</a>
+<div>
+    <div  th:if="${appointment}" th:object="${appointment}">
+        <div th:if="${patient}" class="editButtonDiv">
+
+            <h2 th:text="${today}"></h2>
+            <div>
+                <h2>New Appointment</h2>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <form th:action="@{|/appointmentedit/${appointmentId}|}" method="post">
+                            <div class="form-group">
+                                <label for="patient">Patient:</label>
+                                <select id="patient" class="form-control" th:field="*{patient}">
+                                    <option th:selected="*{patient}" th:value="${patient.id}" th:text="${patient.patientName}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="doctor">Doctor:</label>
+                                <select id="doctor" class="form-control" th:field="*{doctor}">
+                                    <option th:selected="*{doctor}" th:value="${doctor.id}" th:text="${doctor.getDoctorName()}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date:</label>
+                                <select id="date" class="form-control" th:field="*{date}">
+                                    <option th:value="${today}" th:text="${today}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Time:</label>
+                                <select id="time" class="form-control" th:field="*{time}">
+                                    <option th:value="${appointmentTime}" th:text="${appointmentTime}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="complaint">Complaints:</label>
+                                <textarea id="complaint" class="form-control" rows="5" th:field="*{info}"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div>
-            <h2 th:if="${appointment}" th:text="|Appointment of: ${patient.patientName}|"></h2>
-            <p th:unless="${appointment}">unknown</p>
-        </div>
-        <div th:if="${appointment}" class="text-center" style="height: 100vh">
-            <form th:action="@{/appointmentedit}" method="post">
-                <div class="form-group">
-                    <label for="patient">Patient: </label>
-                    <select id="patient" class="form-control" th:field="*{patient}">
-                        <option th:selected="*{patient}" th:value="${patient.id}" th:text="${patient.patientName}"></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="doctor" >Doctor: </label>
-                    <select id="doctor" class="form-control" th:field="*{doctor}">
-                        <option th:selected="*{doctor}" th:value="${doctor.id}" th:text="${doctor.getDoctorName()}"></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="date">Date:</label>
-                    <select id="date" class="form-control" th:field="*{date}">
-                        <option th:value="${today}" th:text="${today}"></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="time">Time:</label>
-                    <select id="time" class="form-control" th:field="*{time}">
-                        <option th:value="${appointmentTime}" th:text="${appointmentTime}"></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="complaint">Complaints:</label>
-                    <textarea id="complaint" class="form-control" rows="5" th:field="*{info}"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Save</button>
-            </form>
+        <div th:unless="patient">
+            <h2>Please Login</h2>
         </div>
     </div>
 </div>

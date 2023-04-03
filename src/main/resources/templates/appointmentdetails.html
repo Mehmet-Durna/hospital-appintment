@@ -21,7 +21,7 @@
         </div>
 
     <div th:if="${appointment}" class="editButtonDiv">
-        <a class="btn btn-primary" th:href="@{'/appointmentedit/' + ${appointment.getDoctor().id}+'/'+ ${appointment.getTime()} }">Edit the Appointment</a>
+        <a class="btn btn-primary" th:href="@{'/appointmentedit/' +${appointment.getId()}+'/'+ ${appointment.getDoctor().id}+'/'+ ${appointment.getTime()} }">Edit the Appointment</a>
     </div>
 
 <div class="card-group mb-5">

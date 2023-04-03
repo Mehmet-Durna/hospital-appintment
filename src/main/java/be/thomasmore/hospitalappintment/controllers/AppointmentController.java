@@ -72,14 +72,22 @@ public class AppointmentController {
 
 
 
-    @GetMapping("/appointmentedit/{doctorId}/{appointmentTime}")
-    public String appointmentEdit(Model model,Principal principal, @PathVariable(required = false) Integer doctorId,@PathVariable(required = false) String appointmentTime) {
+    @GetMapping("/appointmentedit/{appointmentId}/{doctorId}/{appointmentTime}")
+    public String appointmentEdit(Model model,Principal principal, @PathVariable(required = false) Integer appointmentId, @PathVariable(required = false) Integer doctorId,@PathVariable(required = false) String appointmentTime) {
 
         model.addAttribute("doctors", doctorRepository.findAll());
         model.addAttribute("patients", patientRepository.findAll());
 
         Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
         Optional<Patient> optionalPatient = patientRepository.findByUsername(principal.getName());
+
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
+
+
+        if (optionalAppointment.isPresent()) {
+            Appointment appointment = optionalAppointment.get();
+            model.addAttribute("appointment", appointment);
+        }
 
 
         if (optionalPatient.isPresent()) {
@@ -92,14 +100,21 @@ public class AppointmentController {
             model.addAttribute("doctor", doctor);
         }
 
+//        model.addAttribute("appointmentId",);
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("appointmentTime", appointmentTime);
         return "appointmentedit";
     }
 
-    @PostMapping("/appointmentedit/{id}")
-    public String appointmentEditPost(Model model, @PathVariable int id, @ModelAttribute("appointment") Appointment appointment) {
-//        logger.info("appointmentEditPost " + id + " -- new name=" + appointment.getPatient().getPatientName());
+    @PostMapping({"/appointmentedit","/appointmentedit/{appointmentId}"})
+    public String appointmentEditPost(Model model, @PathVariable(required = false) Integer appointmentId, @ModelAttribute("appointment") Appointment appointment) {
+
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
+        if (optionalAppointment.isPresent()){
+            Appointment a=optionalAppointment.get();
+            logger.info("appointmentEditPost "  + " -- new name=" + a.getId());
+        appointmentRepository.delete(a);
+        }
         appointmentRepository.save(appointment);
         return "redirect:/doctordetails/"+appointment.getDoctor().getId();
     }
@@ -109,7 +124,6 @@ public class AppointmentController {
         logger.info("appointmentnew");
         Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
         Optional<Patient> optionalPatient = patientRepository.findByUsername(principal.getName());
-
 
 
         if (optionalPatient.isPresent()) {
