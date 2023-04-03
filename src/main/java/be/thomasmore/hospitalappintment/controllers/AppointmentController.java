@@ -100,7 +100,7 @@ public class AppointmentController {
             model.addAttribute("doctor", doctor);
         }
 
-//        model.addAttribute("appointmentId",);
+
         model.addAttribute("today", LocalDate.now());
         model.addAttribute("appointmentTime", appointmentTime);
         return "appointmentedit";
@@ -117,6 +117,20 @@ public class AppointmentController {
         }
         appointmentRepository.save(appointment);
         return "redirect:/doctordetails/"+appointment.getDoctor().getId();
+    }
+
+
+    @PostMapping({"/appointmentdelete","/appointmentdelete/{appointmentId}/{doctorId}"})
+    public String appointmentDeletePost(Model model, @PathVariable(required = false) Integer appointmentId, @PathVariable(required = false) Integer doctorId, @ModelAttribute("appointment") Appointment appointment) {
+
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
+        if (optionalAppointment.isPresent()){
+            Appointment a=optionalAppointment.get();
+            logger.info("appointmentEditPost "  + " -- new name=" + a.getId());
+            appointmentRepository.delete(a);
+        }
+
+        return "redirect:/doctordetails/"+doctorId;
     }
 
     @GetMapping({"/appointmentnew", "appointmentnew/{doctorId}/{appointmentTime}"})

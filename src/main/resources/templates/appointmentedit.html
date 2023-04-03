@@ -21,6 +21,9 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
+                        <form th:action="@{|/appointmentdelete/${appointmentId}/${doctorId}|}" method="post">
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
                         <form th:action="@{|/appointmentedit/${appointmentId}|}" method="post">
                             <div class="form-group">
                                 <label for="patient">Patient:</label>
