@@ -48,6 +48,21 @@ public class UserController {
         return "user/logout";
     }
 
+//    @PostMapping("/login")
+//    public String loginPost (Principal principal,
+//                             @RequestParam String userName,
+//                             @RequestParam String password) {
+//        if (principal != null) return "redirect:/hospitallist";
+//        if (userName==null || userName.trim().equals("")) return "redirect:/hospitallist";
+//        if (password==null || password.trim().equals("")) return "redirect:/hospitallist";
+//        userName = userName.trim();
+//        Optional<User> optionalUser = userRepository.findByUsername(userName);
+//        if (optionalUser.isPresent()){
+//            autologin(userName, password.trim());
+//        }
+//        return "redirect:/hospitallist";
+//    }
+
     @GetMapping("/register")
     public String register(Principal principal) {
         if (principal != null) return "redirect:/hospitallist";

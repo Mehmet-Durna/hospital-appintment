@@ -1,29 +1,29 @@
 insert into HOSPITAL (ID, HOSPITAL_NAME, ADDRESS, TEL_NO, CAPACITY, FREE_PARKING_AVAILABLE,
                       CITY, DISTANCE_FROM_PUBLIC_TRANSPORT_IN_KM)
-values (1, 'Middleheim', 'Lindendreef 1, 2020', '032803111', 750, true, 'Antwerpen', 0.2);
+values (nextval('HOSPITAL_SEC'), 'Middleheim', 'Lindendreef 1, 2020', '032803111', 750, true, 'Antwerpen', 0.2);
 
 
 
 insert into HOSPITAL (ID, HOSPITAL_NAME, ADDRESS, TEL_NO, CAPACITY, FREE_PARKING_AVAILABLE,
                       CITY, DISTANCE_FROM_PUBLIC_TRANSPORT_IN_KM)
-values (2, 'Oud Militair Hospitaal Antwerpen', 'Artsen zonder Grenzenstraat 2, 2018', '', 100, false, 'Antwerpen', 0.5);
+values (nextval('HOSPITAL_SEC'), 'Oud Militair Hospitaal Antwerpen', 'Artsen zonder Grenzenstraat 2, 2018', '', 100, false, 'Antwerpen', 0.5);
 
 
 
 insert into HOSPITAL (ID, HOSPITAL_NAME, ADDRESS, TEL_NO, CAPACITY, FREE_PARKING_AVAILABLE,
                       CITY, DISTANCE_FROM_PUBLIC_TRANSPORT_IN_KM)
-values (3, 'Fertiliteit SA', 'Oosterveldlaan 24, 2610', '034433549', 500, true, 'Antwerpen', 0.3);
+values (nextval('HOSPITAL_SEC'), 'Fertiliteit SA', 'Oosterveldlaan 24, 2610', '034433549', 500, true, 'Antwerpen', 0.3);
 
 
 
 insert into DEPARTMENT (ID, DEPARTMENT_NAME, INLINE_PHONE_NO, HOSPITAL_ID)
-values (1, 'General internal medicine and infectious disease', '401', 1);
+values (nextval('DEPARTMENT_SEC'), 'General internal medicine and infectious disease', '401', 1);
 
 insert into DEPARTMENT (ID, DEPARTMENT_NAME, INLINE_PHONE_NO, HOSPITAL_ID)
-values (2, 'Laboratory of Pathological Anatomy PA2', '402', 2);
+values (nextval('DEPARTMENT_SEC'), 'Laboratory of Pathological Anatomy PA2', '402', 2);
 
 insert into DEPARTMENT (ID, DEPARTMENT_NAME, INLINE_PHONE_NO, HOSPITAL_ID)
-values (3, 'Cardiologie', '403', 3);
+values (nextval('DEPARTMENT_SEC')   , 'Cardiologie', '403', 3);
 
 insert into DOCTOR (ID, DOCTOR_NAME, SPECIALIZATION, BIO, INLINE_PHONE_NO, DEPARTMENT_ID)
 values (1, 'Nicolaas Aerts', 'Overarching Head of Service

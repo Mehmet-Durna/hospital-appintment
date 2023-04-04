@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
 import java.time.*;
 
 
@@ -35,7 +36,7 @@ public class DoctorController {
     }
 
     @GetMapping({"/doctordetails", "/doctordetails/{id}"})
-    public String doctordetails(Model model, @PathVariable(required = false) Integer id,
+    public String doctordetails(Model model, Principal principal, @PathVariable(required = false) Integer id,
                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                 LocalDate today) {
 
@@ -46,6 +47,7 @@ public class DoctorController {
         val optionalNext = doctorService.findNextDoctor(id);
         val allAppointments = appointmentRepository.findByDoctor(doctor);
         val todaysAppointments = appointmentRepository.findByDoctorAndDate(doctor, today.now());
+        model.addAttribute("principalName", principal.getName());
         model.addAttribute("doctor", doctor);
         model.addAttribute("todayDate", today.now());
         model.addAttribute("allAppointments", allAppointments);

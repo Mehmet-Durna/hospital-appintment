@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>New Appointment</title>
+  <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/hospital.css}" href="/css/hospital.css"/>
+  <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="fragments/headerfooter :: header">Hier komt de header</div>
+<div>
+  <div  th:if="${department}" th:object="${department}">
+
+
+
+    <div>
+      <h2>New Department</h2>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <form class="form" th:action="@{/admin/departmentnew}" method="post">
+
+            <div class="form-group">
+              <label for="departmentName">Department Name:</label>
+              <input type="text" id="departmentName" class="form-control" th:field="*{departmentName}" required>
+            </div>
+
+            <div class="form-group">
+              <label for="inlinePhoneNo">Phone:</label>
+              <input type="text" id="inlinePhoneNo" class="form-control" th:field="*{inlinePhoneNo}" required>
+            </div>
+
+            <div class="form-group">
+              <label for="hospital" >Hospital: </label>
+              <select id="hospital" class="editfield" th:field="*{hospital}">
+                <option th:each="h : ${hospitals}" th:selected="*{hospital}" th:value="${h.id}" th:text="${h.hospitalName}"></option>
+              </select>
+            </div>
+
+
+            <div class="form-group text-center">
+              <input type="submit" value="Create" class="btn btn-primary">
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div th:replace="fragments/headerfooter :: footer">Hier komt de footer</div>
+</body>
+</html>

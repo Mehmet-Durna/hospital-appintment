@@ -13,27 +13,31 @@
 <div th:replace="fragments/headerfooter :: header">Hier komt de header</div>
 
 <div class="container-fluid" >
-    <div>
+
         <h1>Welcome Admin</h1>
 
     <div class="card-group mb-5">
-        <div class="card">
-            <ul>
-                <li>Add Hospital</li>
-                <li>Add Department</li>
-                <li>Add Doctor</li>
-            </ul>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Options</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item ">
+                        <a href="/admin/hospitalnew" class="text-decoration-none text-dark btn-outline-danger p-3">Add Hospital</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/admin/departmentnew" class="text-decoration-none text-dark btn-outline-danger p-3">Add Department</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/admin/doctornew" class="text-decoration-none text-dark btn-outline-danger p-3">Add Doctor</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-
-        <div class="card">
-            <ul>
-                <li>Edit Hospital</li>
-                <li>Edit Department</li>
-                <li>Edit Doctor</li>
-            </ul>
-        </div>
-
     </div>
+</div>
+
+
+
 
     <div th:replace="fragments/headerfooter :: footer">Hier komt de footer</div>
 </body>
