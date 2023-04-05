@@ -26,19 +26,19 @@ insert into DEPARTMENT (ID, DEPARTMENT_NAME, INLINE_PHONE_NO, HOSPITAL_ID)
 values (nextval('DEPARTMENT_SEC')   , 'Cardiologie', '403', 3);
 
 insert into DOCTOR (ID, DOCTOR_NAME, SPECIALIZATION, BIO, INLINE_PHONE_NO, DEPARTMENT_ID)
-values (1, 'Nicolaas Aerts', 'Overarching Head of Service
+values (nextval('DOCTOR_SEC'), 'Nicolaas Aerts', 'Overarching Head of Service
 General rheumatology',
         'Doctor of Medicine (abbreviated M.D., from the Latin Medicinae Doctor) is a medical degree, the meaning of which varies between different jurisdictions. In the United States, and some other countries, the M.D. denotes a professional degree. This generally arose because many in 18th-century medical professions trained in Scotland, which used the M.D. degree nomenclature. In England, however, Bachelor of Medicine, Bachelor of Surgery was used and eventually in the 19th century became the standard in Scotland too.',
         '501', 1);
 
 insert into DOCTOR (ID, DOCTOR_NAME, SPECIALIZATION, BIO, INLINE_PHONE_NO, DEPARTMENT_ID)
-values (2, 'Sophie Bare', 'Algemene pediatrie
+values (nextval('DOCTOR_SEC'), 'Sophie Bare', 'Algemene pediatrie
 Neonatologie',
         'Doctor of Medicine (abbreviated M.D., from the Latin Medicinae Doctor) is a medical degree, the meaning of which varies between different jurisdictions. In the United States, and some other countries, the M.D. denotes a professional degree. This generally arose because many in 18th-century medical professions trained in Scotland, which used the M.D. degree nomenclature. In England, however, Bachelor of Medicine, Bachelor of Surgery was used and eventually in the 19th century became the standard in Scotland too.',
         '502', 3);
 
 insert into DOCTOR (ID, DOCTOR_NAME, SPECIALIZATION, BIO, INLINE_PHONE_NO, DEPARTMENT_ID)
-values (3, 'Mary-Louise Bonduelle', '
+values (nextval('DOCTOR_SEC'), 'Mary-Louise Bonduelle', '
 Gynecology and Obstetrics
 Medical genetics
 Medical oncology',
@@ -46,7 +46,7 @@ Medical oncology',
         '503', 2);
 
 insert into DOCTOR (ID, DOCTOR_NAME, SPECIALIZATION, BIO, INLINE_PHONE_NO, DEPARTMENT_ID)
-values (4, 'Jens De Cock', 'General radiology',
+values (nextval('DOCTOR_SEC'), 'Jens De Cock', 'General radiology',
         'Doctor of Medicine (abbreviated M.D., from the Latin Medicinae Doctor) is a medical degree, the meaning of which varies between different jurisdictions. In the United States, and some other countries, the M.D. denotes a professional degree. This generally arose because many in 18th-century medical professions trained in Scotland, which used the M.D. degree nomenclature. In England, however, Bachelor of Medicine, Bachelor of Surgery was used and eventually in the 19th century became the standard in Scotland too.',
         '504', 3);
 

@@ -1,9 +1,6 @@
 package be.thomasmore.hospitalappintment.controllers;
 
-import be.thomasmore.hospitalappintment.model.Appointment;
-import be.thomasmore.hospitalappintment.model.Department;
-import be.thomasmore.hospitalappintment.model.Hospital;
-import be.thomasmore.hospitalappintment.model.User;
+import be.thomasmore.hospitalappintment.model.*;
 import be.thomasmore.hospitalappintment.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +15,7 @@ import java.util.Optional;
 @RequestMapping("/admin")
 public class AdminController {
     private Logger logger = LoggerFactory.getLogger(AdminController.class);
-    @Autowired
-    private AppointmentRepository appointmentRepository;
+
     @Autowired
     private DoctorRepository doctorRepository;
     @Autowired
@@ -49,6 +45,37 @@ public class AdminController {
         }
         return new Department();
     }
+
+
+    @ModelAttribute("doctor")
+    public Doctor findDoctor(@PathVariable(required = false) Integer id) {
+
+        if (id!=null) {
+            Optional<Doctor> optionalDoctor = doctorRepository.findById(id);
+            if (optionalDoctor.isPresent()) return optionalDoctor.get();
+        }
+        return new Doctor();
+    }
+
+
+    @GetMapping("/doctornew")
+    public String doctorNew(Model model) {
+        logger.info("doctornew");
+
+        model.addAttribute("departments", departmentRepository.findAll());
+        return "admin/doctornew";
+    }
+
+    @PostMapping("/doctornew")
+    public String doctorNewPost(Model model, @ModelAttribute("doctor")  Doctor doctor) {
+
+        doctorRepository.save(doctor);
+        return "redirect:/hospitallist";
+    }
+
+
+
+
 
 
     @GetMapping("/departmentnew")

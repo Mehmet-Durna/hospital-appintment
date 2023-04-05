@@ -14,6 +14,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Doctor {
 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doctor_generator")
+    @SequenceGenerator(name = "doctor_generator", sequenceName = "DOCTOR_SEC", allocationSize = 1)
     @Id
     private Integer id;
     private String doctorName;
@@ -23,10 +25,6 @@ public class Doctor {
     private String inlinePhoneNo;
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
-
-
-
-
 
 
 }
